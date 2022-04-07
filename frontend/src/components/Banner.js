@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BannerItem } from './BannerItem';
 import banner1 from '../assets/images/banner1.jpg';
@@ -36,6 +36,8 @@ const Background = styled.div`
 `;
 
 export function Banner() {
+  SwiperCore.use([Autoplay])
+
   return (
     <Wrapper>
         <Swiper
@@ -44,7 +46,8 @@ export function Banner() {
           pagination={{ clickable: true }}
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log('slide change')}
-          >
+          autoplay={{ delay: 3000 }}
+        >
           <SwiperSlide>
             <BannerItem />
           </SwiperSlide>
