@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import killzoneCapa from '../assets/images/capa1.png'
+import { Button } from './Button';
 
 const Wrapper = styled.div`
   display: grid;
@@ -37,15 +38,6 @@ const Wrapper = styled.div`
     border: 4px solid #ffffff;
     border-radius: 4px;
   }
-
-  button {
-    background-color: #45b77d;
-    color: #ffffff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
 `;
 
 
@@ -58,7 +50,7 @@ export function BannerItem() {
         <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis 
           et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
         </p>
-        <button>Adicionar ao carrinho</button>
+        <Button color="primary">Adicionar ao carrinho</Button>
       </div>
       <div>
         <img src={killzoneCapa} alt="Killzone" />

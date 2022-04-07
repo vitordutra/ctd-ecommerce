@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import killzoneCapa from '../assets/images/capa1.png'
+import { Button } from './Button';
 
 const Wrapper = styled.section`
     background-color: #ffffff;
@@ -43,8 +44,8 @@ const Wrapper = styled.section`
 `;
 
 const Actions = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 `;
 
@@ -61,8 +62,8 @@ export function ProductCard() {
         <small>R$ 190,00</small>
         <p>Lorem ipsum dolor sit consectetur adipiscing elit do eiusmod tempor...</p>
         <Actions>
-          <button>Adicionar ao carrinho</button>
-          <button>Ver detalhes</button>
+          <Button color="primary">Adicionar ao carrinho</Button>
+          <Button color="secondary">Ver detalhes</Button>
         </Actions>
       </div>
     </Wrapper>
