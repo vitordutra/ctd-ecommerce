@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { MdShoppingCart, MdHome } from 'react-icons/md';
 import logoImage from '../assets/images/logo.png';
+import searchIcon from '../assets/icons/search.png';
 
 const Wrapper = styled.header`
   background-color: #111;
@@ -78,6 +79,7 @@ const Navbar = styled.nav`
   border-radius: 3px;
   display: flex;
   align-items: stretch;
+  justify-content: space-between;
   transform: translateY(50%);
   position: relative;
   z-index: 1;
@@ -121,6 +123,45 @@ const Navbar = styled.nav`
   }
 `;
 
+const NavLinks = styled.div`
+    display: flex;
+    align-items: stretch;
+`;
+
+const Search = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #CBCBCB;
+
+  img {
+    position: absolute;
+    left: 16px;
+    color: #B7B7B7;
+    width: 18px;
+    height: 18px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    position: absolute;
+    inset: 0;
+    padding-left: 48px;
+    font-size: 14px;
+    background-color: #EEEEEE;
+    transition: background-color .3s;
+    
+    &:focus {
+      background-color: #FFFFFF;
+    }
+  }
+`;
+
 export function Header() {
   return (
     <Wrapper>
@@ -143,24 +184,30 @@ export function Header() {
           </Menu>
         </Topbar>
         <Navbar>
-          <NavLink to="/">
-            <MdHome />
-          </NavLink>
-          <NavLink to="/categorias/promocoes">
-            <span>Promoções</span>
-          </NavLink>
-          <NavLink to="/categorias/pc">
-            <span>PC</span>
-          </NavLink>
-          <NavLink to="/categorias/playstation">
-            <span>PlayStation</span>
-          </NavLink>
-          <NavLink to="/categorias/xbox">
-            <span>XBOX</span>
-          </NavLink>
-          <NavLink to="/categorias/wii">
-            <span>Wii</span>
-          </NavLink>
+          <NavLinks>
+            <NavLink to="/">
+              <MdHome />
+            </NavLink>
+            <NavLink to="/categorias/promocoes">
+              <span>Promoções</span>
+            </NavLink>
+            <NavLink to="/categorias/pc">
+              <span>PC</span>
+            </NavLink>
+            <NavLink to="/categorias/playstation">
+              <span>PlayStation</span>
+            </NavLink>
+            <NavLink to="/categorias/xbox">
+              <span>XBOX</span>
+            </NavLink>
+            <NavLink to="/categorias/wii">
+              <span>Wii</span>
+            </NavLink>
+          </NavLinks>
+          <Search>
+            <img src={searchIcon} alt="" />
+            <input type="text" placeholder='Buscar...' />
+          </Search>
         </Navbar>
       </div>
     </Wrapper>
