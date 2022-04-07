@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { ProductCard } from '../../components/ProductCard';
 
@@ -9,11 +10,23 @@ const Wrapper = styled.section`
   flex-direction: column;
   gap: 80px;
 
+  > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
   h2 {
     font-size: 32px;
     font-weight: 300;
     margin-bottom: 30px;
   }
+
+  a {
+    font-size: 14px;
+    color: #666a6c;
+  }
+
 
   ul {
     display: grid;
@@ -28,7 +41,10 @@ export function Products() {
   return (
     <Wrapper>
       <div>
-        <h2>Novos Produtos</h2>
+        <div>
+          <h2>Novos Produtos</h2>
+          <Link to="/categorias/novos-produtos">Ver todos</Link>
+        </div>
         <ul>
           <li>
             <ProductCard />
@@ -45,7 +61,10 @@ export function Products() {
         </ul>
       </div>
       <div>
-        <h2>Promoções</h2>
+        <div>
+          <h2>Promoções</h2>
+          <Link to="/categorias/promocoes">Ver todos</Link>
+        </div>
         <ul>
           <li>
             <ProductCard />
