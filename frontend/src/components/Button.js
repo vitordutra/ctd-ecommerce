@@ -14,7 +14,7 @@ const buttonColors = {
 
 const Wrapper = styled.button`
   border: none;
-  padding: 10px;
+  padding: 10px 32px;
   border-radius: 4px;
   cursor: pointer;
   background-color: ${props => buttonColors.background[props.color]};
