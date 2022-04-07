@@ -83,6 +83,7 @@ const Navbar = styled.nav`
   transform: translateY(50%);
   position: relative;
   z-index: 1;
+  overflow: hidden;
 
   a {
     display: flex;
