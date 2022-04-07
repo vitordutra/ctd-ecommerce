@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { GlobalStyles } from './styles/global';
+import { Home } from './views/Home';
 
 function App() {
   return (
-    <>
-      <h1>Checkpoint</h1>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categorias/:categoriaId" element={<Home />} />
+      </Routes>
+      <GlobalStyles />
+    </BrowserRouter>
+  );
 }
 
 export default App;
