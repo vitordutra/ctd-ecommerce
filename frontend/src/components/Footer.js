@@ -105,7 +105,7 @@ export function Footer() {
             </div>
             <div>
               <h3>My Account</h3>
-              <ul class="no-bullet">
+              <ul>
                 <li><a href="#">Login/Register</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Cart</a></li>
