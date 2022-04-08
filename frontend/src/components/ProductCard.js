@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import killzoneCapa from '../assets/images/capa1.png'
 import { Button } from './Button';
@@ -47,6 +48,10 @@ const Actions = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  button {
+    width: 100%;
+  }
 `;
 
 export function ProductCard() {
@@ -63,7 +68,9 @@ export function ProductCard() {
         <p>Lorem ipsum dolor sit consectetur adipiscing elit do eiusmod tempor...</p>
         <Actions>
           <Button color="primary">Adicionar ao carrinho</Button>
-          <Button color="secondary">Ver detalhes</Button>
+          <Link to="/produtos/teste">
+            <Button color="secondary">Ver detalhes</Button>
+          </Link>
         </Actions>
       </div>
     </Wrapper>
