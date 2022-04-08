@@ -26,6 +26,6 @@ const Wrapper = styled.button`
   }
 `;
 
-export function Button({color, children}) {
-  return <Wrapper color={color}>{children}</Wrapper>
+export function Button({color = 'primary', type = 'button', children}) {
+  return <Wrapper color={color} type={type}>{children}</Wrapper>
 }
