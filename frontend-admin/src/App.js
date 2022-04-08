@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Table } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -12,8 +12,38 @@ import {
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
+const columns = [
+  {
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id'
+  },
+  {
+    title: 'Nome',
+    dataIndex: 'nome',
+    key: 'nome'
+  },
+  {
+    title: 'Tipo',
+    dataIndex: 'tipo',
+    key: 'tipo'
+  }
+];
+
+function renderPokemons(pokemons) {
+  if (pokemons.length <= 0) {
+    return 'nenhum pokémon';
+  }
+  return <Table dataSource={pokemons} columns={columns} />;
+}
+
 function App() {
   const [collapsed, setCollapsed] = useState(false);
+  const [pokemons, setPokemons] = useState([
+    { id: 1, nome: 'Charmander', tipo: 'Fogo' },
+    { id: 2, nome: 'Squirtle', tipo: 'Água' },
+    { id: 3, nome: 'Bulbassauro', tipo: 'Grama' }
+  ]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -51,7 +81,7 @@ function App() {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            Bill is a cat.
+            {renderPokemons(pokemons)}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
