@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { MdShoppingCart, MdHome } from 'react-icons/md';
 import logoImage from '../assets/images/logo.png';
 import searchIcon from '../assets/icons/search.png';
@@ -176,10 +176,10 @@ export function Header() {
             </div>
           </Logo>
           <Menu>
-            <a href="/">
+            <Link to="/carrinho">
               <MdShoppingCart />
               <span>0 itens no carrinho</span>
-            </a>
+            </Link>
             <div />
             <a href="/">Login / Register</a>
           </Menu>
