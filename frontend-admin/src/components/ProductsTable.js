@@ -111,7 +111,7 @@ export function ProductsTable() {
     return <Spin indicator={antIcon} />;
   }
 
-  if (products.length <= 0) {
+  if (products.length === 0) {
     return (
       <>
         <Button
@@ -132,38 +132,39 @@ export function ProductsTable() {
       </>
     );
   }
-  return (
-    <>
-      <ProductDrawerForm
-        showDrawer={showDrawer}
-        setShowDrawer={setShowDrawer}
-        fetchStudents={fetchProduct}
-      />
-      <Table
-        dataSource={products}
-        columns={getColumns(fetchProduct)}
-        bordered
-        title={() => (
-          <>
-            <Tag>Number of students</Tag>
-            <Badge count={products.length} className="site-badge-count-4" />
-            <br />
-            <br />
-            <Button
-              onClick={() => setShowDrawer(!showDrawer)}
-              type="primary"
-              shape="round"
-              icon={<PlusOutlined />}
-              size="small"
-            >
-              Add New Student
-            </Button>
-          </>
-        )}
-        pagination={{ pageSize: 50 }}
-        scroll={{ y: 500 }}
-        rowKey={student => student.id}
-      />
-    </>
-  );
+
+  // return (
+  //   <>
+  //     <ProductDrawerForm
+  //       showDrawer={showDrawer}
+  //       setShowDrawer={setShowDrawer}
+  //       fetchStudents={fetchProduct}
+  //     />
+  //     <Table
+  //       dataSource={products}
+  //       columns={getColumns(fetchProduct)}
+  //       bordered
+  //       title={() => (
+  //         <>
+  //           <Tag>Number of students</Tag>
+  //           <Badge count={products.length} className="site-badge-count-4" />
+  //           <br />
+  //           <br />
+  //           <Button
+  //             onClick={() => setShowDrawer(!showDrawer)}
+  //             type="primary"
+  //             shape="round"
+  //             icon={<PlusOutlined />}
+  //             size="small"
+  //           >
+  //             Add New Student
+  //           </Button>
+  //         </>
+  //       )}
+  //       pagination={{ pageSize: 50 }}
+  //       scroll={{ y: 500 }}
+  //       rowKey={student => student.id}
+  //     />
+  //   </>
+  // );
 }
