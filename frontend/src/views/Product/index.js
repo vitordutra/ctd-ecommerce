@@ -3,6 +3,7 @@ import { MainLayout } from '../../layouts/MainLayout';
 import { ProductSlider } from './ProductSlider';
 import { Container } from '../../components/Container';
 import { ProductDetails } from './ProductDetails';
+import { SimilarProducts } from './SimilarProducts';
 
 const Grid = styled.div`
   display: grid;
@@ -19,6 +20,7 @@ export function Product() {
           <ProductSlider />
           <ProductDetails />
         </Grid>
+        <SimilarProducts />
       </Container>
     </MainLayout>
   )
