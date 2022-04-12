@@ -3,6 +3,7 @@ import { GlobalStyles } from './styles/global';
 import { Cart } from './views/Cart';
 import { Home } from './views/Home';
 import { Product } from './views/Product';
+import { Category } from './views/Category';
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/carrinho" element={<Cart />} />
-        <Route path="/categorias/:categoriaId" element={<Home />} />
         <Route path="/produtos/:produtoId" element={<Product />} />
+        <Route path="/categorias/:categoriaId" element={<Category />} />
       </Routes>
       <GlobalStyles />
     </BrowserRouter>
