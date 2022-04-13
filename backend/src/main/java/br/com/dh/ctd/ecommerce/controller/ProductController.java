@@ -1,62 +1,31 @@
 package br.com.dh.ctd.ecommerce.controller;
 
-import br.com.dh.ctd.ecommerce.model.Product;
-import br.com.dh.ctd.ecommerce.service.CategoryService;
+import br.com.dh.ctd.ecommerce.dto.ProductDto;
 import br.com.dh.ctd.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productService;
-    private CategoryService categoryService;
-
     @Autowired
-    public ProductController(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-    }
-
-    @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        categoryService.saveCategory(product.getCategory());
-        return ResponseEntity.ok(productService.saveProduct(product));
-    }
+    private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> showAllProducts(){
-        return ResponseEntity.ok(productService.showAllProducts());
+    public ResponseEntity<Page<ProductDto>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "12") Integer size
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<ProductDto> list = productService.buscarTodos(pageRequest);
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> showProductById(@PathVariable Integer id){
-        return  ResponseEntity.ok(productService.showById(id).orElse(null));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
-        String string = null;
-        if (productService.showById(id).isPresent()){
-            string = "Deletado";
-            productService.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(string);
-        } else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
-    @PutMapping
-    public ResponseEntity<Product> update(@RequestBody Product product){
-        if (product.getId() != null && productService.showById(product.getId()).isPresent()){
-            return ResponseEntity.ok(productService.update(product));
-        } else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
 }

@@ -1,58 +1,52 @@
 package br.com.dh.ctd.ecommerce.controller;
 
-import br.com.dh.ctd.ecommerce.model.Category;
+import br.com.dh.ctd.ecommerce.dto.CategoryDto;
 import br.com.dh.ctd.ecommerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-    private CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
-    @PostMapping
-    public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
-        return ResponseEntity.ok(categoryService.saveCategory(category));
-    }
+    private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAllCategories() {
-        return ResponseEntity.ok(categoryService.findAllCategories());
+    public ResponseEntity<Page<CategoryDto>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "3") Integer size
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<CategoryDto> list = categoryService.findAllPage(pageRequest);
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findCategoryById(@PathVariable Integer id) {
-        return ResponseEntity.ok(categoryService.findCategoryById(id).orElse(null));
+    public ResponseEntity<CategoryDto> findById(@PathVariable Integer id) {
+        CategoryDto dto = categoryService.findById(id);
+        return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
-        ResponseEntity<Category> response = null;
-        if (category.getId() != null && categoryService.findCategoryById(category.getId()).isPresent()) {
-            response = ResponseEntity.ok(categoryService.updateCategory(category));
-        } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return response;
+    @PostMapping
+    public ResponseEntity<CategoryDto> insert(@RequestBody CategoryDto dto) {
+        dto = categoryService.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                        .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
+
+    // UPDATE
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Integer id){
-        if (categoryService.findCategoryById(id).isPresent()){
-            categoryService.deleteCategory(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        categoryService.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }

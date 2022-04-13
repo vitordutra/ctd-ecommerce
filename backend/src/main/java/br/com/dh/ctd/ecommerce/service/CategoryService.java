@@ -1,40 +1,61 @@
 package br.com.dh.ctd.ecommerce.service;
 
-import br.com.dh.ctd.ecommerce.model.Category;
-import br.com.dh.ctd.ecommerce.repository.CategoryRepository;
+import br.com.dh.ctd.ecommerce.dto.CategoryDto;
+import br.com.dh.ctd.ecommerce.model.Categories;
+import br.com.dh.ctd.ecommerce.repositories.CategoryRepository;
+import br.com.dh.ctd.ecommerce.service.exceptions.BDExcecao;
+import br.com.dh.ctd.ecommerce.service.exceptions.RecursoNaoEncontrado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoryService {
 
-    CategoryRepository categoryRepository;
-
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private CategoryRepository categoryRepository;
+
+    @Transactional(readOnly = true)
+    public Page<CategoryDto> findAllPage(PageRequest pageRequest) {
+        Page<Categories> list = categoryRepository.findAll(pageRequest);
+        return list.map(x -> new CategoryDto(x));
     }
 
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
+    @Transactional(readOnly = true)
+    public CategoryDto findById(Integer id) {
+        Optional<Categories> obj = categoryRepository.findById(id);
+        //Categories entidade = obj.get();
+        Categories entidade = obj.
+                orElseThrow(() -> new RecursoNaoEncontrado("Entidade não encontrada."));
+        return new CategoryDto(entidade);
     }
 
-    public List<Category> findAllCategories() {
-        return categoryRepository.findAll();
+    @Transactional
+    public CategoryDto insert(CategoryDto dto) {
+        Categories entity = new Categories();
+        entity.setName(dto.getName());
+        entity = categoryRepository.save(entity);
+        return new CategoryDto(entity);
     }
 
-    public Optional<Category> findCategoryById(Integer id) {
-        return categoryRepository.findById(id);
+    // UPDATE
+
+    public void delete(Integer id) {
+        try {
+            categoryRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new RecursoNaoEncontrado("ID NÃO ENCONTRADO: " + id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new BDExcecao("VIOLAÇÃO DE INTEGRIDADE");
+        }
     }
 
-    public Category updateCategory(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    public void deleteCategory(Integer id) {
-        categoryRepository.deleteById(id);
-    }
 }
