@@ -1,0 +1,40 @@
+.person-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    gap: 40px;
+    padding: 25px;
+}
+
+.person-info{
+    text-align: center;
+}
+
+.person-info > h2 {
+    margin: 25px 0;
+}
+
+.social-icon{
+    font-size: 1.2rem;
+}
+
+.social-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+}
+
+.person-button-control{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.person-customization{
+    padding: 15px 30px 30px;
+    background-color: #ffffff;
+    border-radius: 9px;
+}
