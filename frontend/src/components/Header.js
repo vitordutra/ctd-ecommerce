@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { MdShoppingCart, MdHome } from 'react-icons/md';
 import logoImage from '../assets/images/logo.png';
 import searchIcon from '../assets/icons/search.png';
+import { AuthModal } from './AuthModal';
+import { useState } from 'react';
 
 const Wrapper = styled.header`
   background-color: #111;
@@ -16,9 +18,9 @@ const Wrapper = styled.header`
 `;
 
 const Topbar = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Logo = styled.div`
@@ -46,7 +48,7 @@ const Menu = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 20px;
-  
+
   a {
     display: flex;
     align-items: flex-end;
@@ -54,10 +56,10 @@ const Menu = styled.div`
     color: #ffffff;
     font-size: 14px;
     font-weight: 300;
-    transition: color .2s;
+    transition: color 0.2s;
 
     &:hover {
-      color:  #45b77d;
+      color: #45b77d;
     }
 
     svg {
@@ -71,6 +73,19 @@ const Menu = styled.div`
     width: 1px;
     height: 18px;
     background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: #45b77d;
+    }
   }
 `;
 
@@ -90,7 +105,7 @@ const Navbar = styled.nav`
     align-items: center;
     padding: 30px 0;
     color: #666a6c;
-    transition: color .2s;
+    transition: color 0.2s;
     border-bottom: 2px solid transparent;
     font-weight: 300;
 
@@ -103,7 +118,7 @@ const Navbar = styled.nav`
     span {
       padding: 0 15px;
     }
-    
+
     svg {
       width: 24px;
       height: 24px;
@@ -114,7 +129,7 @@ const Navbar = styled.nav`
       color: #45b77d;
       border-color: #45b77d;
     }
-    
+
     &.active {
       border-color: #45b77d;
       svg {
@@ -125,8 +140,8 @@ const Navbar = styled.nav`
 `;
 
 const NavLinks = styled.div`
-    display: flex;
-    align-items: stretch;
+  display: flex;
+  align-items: stretch;
 `;
 
 const Search = styled.div`
@@ -135,12 +150,12 @@ const Search = styled.div`
   max-width: 300px;
   display: flex;
   align-items: center;
-  border-left: 1px solid #CBCBCB;
+  border-left: 1px solid #cbcbcb;
 
   img {
     position: absolute;
     left: 16px;
-    color: #B7B7B7;
+    color: #b7b7b7;
     width: 18px;
     height: 18px;
     z-index: 1;
@@ -154,18 +169,24 @@ const Search = styled.div`
     inset: 0;
     padding-left: 48px;
     font-size: 14px;
-    background-color: #EEEEEE;
-    transition: background-color .3s;
-    
+    background-color: #eeeeee;
+    transition: background-color 0.3s;
+
     &:focus {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
   }
 `;
 
 export function Header() {
+  const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
+
   return (
     <Wrapper>
+      <AuthModal
+        isOpen={authModalIsOpen}
+        onRequestClose={() => setAuthModalIsOpen(false)}
+      />
       <div>
         <Topbar>
           <Logo>
@@ -181,7 +202,9 @@ export function Header() {
               <span>0 itens no carrinho</span>
             </Link>
             <div />
-            <a href="/">Login / Register</a>
+            <button onClick={() => setAuthModalIsOpen(true)}>
+              Login / Register
+            </button>
           </Menu>
         </Topbar>
         <Navbar>
@@ -207,7 +230,7 @@ export function Header() {
           </NavLinks>
           <Search>
             <img src={searchIcon} alt="" />
-            <input type="text" placeholder='Buscar...' />
+            <input type="text" placeholder="Buscar..." />
           </Search>
         </Navbar>
       </div>
