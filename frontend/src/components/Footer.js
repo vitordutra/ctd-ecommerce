@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FiFacebook, FiTwitter, FiInstagram } from 'react-icons/fi';
 import { Button } from '../components/Button';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.footer`
   background-color: #222222;
@@ -87,7 +88,7 @@ export function Footer() {
               <h3>Information</h3>
               <ul>
                 <li><a href="/">Site map</a></li>
-                <li><a href="/">About us</a></li>
+                <Link to="/about"><li><a href="/">About us</a></li></Link>
                 <li><a href="/">FAQ</a></li>
                 <li><a href="/">Privacy Policy</a></li>
                 <li><a href="/">Contact</a></li>
