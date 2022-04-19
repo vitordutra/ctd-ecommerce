@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { errorNotification } from '../utils/notifications';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = 'http://localhost:8080';
 
 axios.interceptors.response.use(null, error => {
   const expectedError =

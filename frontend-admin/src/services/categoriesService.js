@@ -1,6 +1,6 @@
 import http from './http';
 
-const apiUrl = '/category';
+const apiUrl = '/categories';
 
 function categoryUrl(id) {
   return `${apiUrl}/${id}`;
