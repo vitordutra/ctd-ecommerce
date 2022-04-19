@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/categories")
 public class CategoryController {
 
@@ -21,7 +22,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<Page<CategoryDto>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "3") Integer size
+            @RequestParam(value = "size", defaultValue = "12") Integer size
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<CategoryDto> list = categoryService.findAllPage(pageRequest);
