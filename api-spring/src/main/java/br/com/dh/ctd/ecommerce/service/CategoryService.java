@@ -1,7 +1,7 @@
 package br.com.dh.ctd.ecommerce.service;
 
 import br.com.dh.ctd.ecommerce.dto.CategoryDto;
-import br.com.dh.ctd.ecommerce.model.Categories;
+import br.com.dh.ctd.ecommerce.model.Category;
 import br.com.dh.ctd.ecommerce.repositories.CategoryRepository;
 import br.com.dh.ctd.ecommerce.service.exceptions.BDExcecao;
 import br.com.dh.ctd.ecommerce.service.exceptions.RecursoNaoEncontrado;
@@ -24,22 +24,22 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Page<CategoryDto> findAllPage(PageRequest pageRequest) {
-        Page<Categories> list = categoryRepository.findAll(pageRequest);
+        Page<Category> list = categoryRepository.findAll(pageRequest);
         return list.map(x -> new CategoryDto(x));
     }
 
     @Transactional(readOnly = true)
     public CategoryDto findById(Integer id) {
-        Optional<Categories> obj = categoryRepository.findById(id);
+        Optional<Category> obj = categoryRepository.findById(id);
         //Categories entidade = obj.get();
-        Categories entidade = obj.
+        Category entidade = obj.
                 orElseThrow(() -> new RecursoNaoEncontrado("Entidade não encontrada."));
         return new CategoryDto(entidade);
     }
 
     @Transactional
     public CategoryDto insert(CategoryDto dto) {
-        Categories entity = new Categories();
+        Category entity = new Category();
         entity.setName(dto.getName());
         entity = categoryRepository.save(entity);
         return new CategoryDto(entity);
@@ -48,7 +48,7 @@ public class CategoryService {
     @Transactional
     public CategoryDto update(Integer id, CategoryDto dto) {
         try {
-            Categories entity = categoryRepository.getById(id.intValue());
+            Category entity = categoryRepository.getById(id.intValue());
             entity.setName(dto.getName());
             entity = categoryRepository.save(entity);
             return new CategoryDto(entity);

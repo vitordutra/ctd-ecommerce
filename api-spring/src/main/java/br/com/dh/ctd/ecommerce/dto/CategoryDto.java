@@ -1,6 +1,6 @@
 package br.com.dh.ctd.ecommerce.dto;
 
-import br.com.dh.ctd.ecommerce.model.Categories;
+import br.com.dh.ctd.ecommerce.model.Category;
 
 import java.io.Serializable;
 
@@ -18,7 +18,7 @@ public class CategoryDto implements Serializable {
         this.name = name;
     }
 
-    public CategoryDto(Categories categories) {
+    public CategoryDto(Category categories) {
         id = categories.getId();
         name = categories.getName();
     }

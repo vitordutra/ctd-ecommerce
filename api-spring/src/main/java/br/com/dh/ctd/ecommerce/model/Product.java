@@ -1,5 +1,8 @@
 package br.com.dh.ctd.ecommerce.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -7,8 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
-public class Products implements Serializable {
+@Table(name = "products")
+public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,11 +22,13 @@ public class Products implements Serializable {
     private String description;
     private Double price;
     private String image;
+    private Boolean featured;
+    private String bannerImage;
 
     // Timestamps automáticos
-    @Column(columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
     private Instant criado;
-    @Column(columnDefinition = "TIMESTAMP")
+    @UpdateTimestamp
     private Instant atualizado;
 
     @PrePersist
@@ -40,12 +45,12 @@ public class Products implements Serializable {
     @JoinTable(name = "productscategories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn (name = "category_id"))
-    Set<Categories> categories = new HashSet<>();
+    Set<Category> categories = new HashSet<>();
 
-    public Products() {
+    public Product() {
     }
 
-    public Products(Integer id, String title, String description, Double price, String image) {
+    public Product(Integer id, String title, String description, Double price, String image) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -93,8 +98,24 @@ public class Products implements Serializable {
         this.image = image;
     }
 
-    public Set<Categories> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Boolean getFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        this.featured = featured;
+    }
+
+    public String getBannerImage() {
+        return bannerImage;
+    }
+
+    public void setBannerImage(String bannerImage) {
+        this.bannerImage = bannerImage;
     }
 
     public Instant getCriado() {

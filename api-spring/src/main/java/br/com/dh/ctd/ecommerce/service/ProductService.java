@@ -2,8 +2,8 @@ package br.com.dh.ctd.ecommerce.service;
 
 import br.com.dh.ctd.ecommerce.dto.CategoryDto;
 import br.com.dh.ctd.ecommerce.dto.ProductDto;
-import br.com.dh.ctd.ecommerce.model.Categories;
-import br.com.dh.ctd.ecommerce.model.Products;
+import br.com.dh.ctd.ecommerce.model.Category;
+import br.com.dh.ctd.ecommerce.model.Product;
 import br.com.dh.ctd.ecommerce.repositories.CategoryRepository;
 import br.com.dh.ctd.ecommerce.repositories.ProductRepository;
 import br.com.dh.ctd.ecommerce.service.exceptions.BDExcecao;
@@ -30,22 +30,22 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<ProductDto> buscarTodos(PageRequest pageRequest) {
-        Page<Products> list = productRepository.findAll(pageRequest);
-        return list.map(x -> new ProductDto(x));
+        Page<Product> list = productRepository.findAll(pageRequest);
+        return list.map(x -> new ProductDto(x, x.getCategories()));
     }
 
     @Transactional(readOnly = true)
     public ProductDto findById(Integer id) {
-        Optional<Products> obj = productRepository.findById(id);
+        Optional<Product> obj = productRepository.findById(id);
         //Products entidade = obj.get();
-        Products entidade = obj.orElseThrow(() -> new RecursoNaoEncontrado(
+        Product entidade = obj.orElseThrow(() -> new RecursoNaoEncontrado(
                 "RECURSO NÃO ENCONTRADO"));
         return new ProductDto(entidade, entidade.getCategories());
     }
 
     @Transactional
     public ProductDto insert(ProductDto dto) {
-        Products entity = new Products();
+        Product entity = new Product();
         copyToEntity(dto, entity);
         entity = productRepository.save(entity);
         return new ProductDto(entity);
@@ -54,7 +54,7 @@ public class ProductService {
     @Transactional
     public ProductDto update(Integer id, ProductDto dto) {
         try {
-            Products entity = productRepository.getById(id.intValue());
+            Product entity = productRepository.getById(id.intValue());
             copyToEntity(dto, entity);
             entity = productRepository.save(entity);
             return new ProductDto(entity);
@@ -76,16 +76,17 @@ public class ProductService {
         }
     }
 
-    private void copyToEntity(ProductDto dto, Products entity) {
+    private void copyToEntity(ProductDto dto, Product entity) {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImage(dto.getImage());
+        entity.setFeatured(dto.getFeatured());
+        entity.setBannerImage(dto.getBannerImage());
 
-        entity.getCategories().clear();
         for (CategoryDto catDto : dto.getCategories()) {
-            Categories categories = categoryRepository.getById(catDto.getId());
-            entity.getCategories().add(categories);
+            Category category = categoryRepository.getById(catDto.getId());
+            entity.getCategories().add(category);
         }
     }
 }
