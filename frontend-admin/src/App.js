@@ -1,29 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { DashboardLayout } from './layouts/DashboardLayout';
-import { ProductsTable } from './components/ProductsTable';
-import { CategoriesTable } from './components/CategoriesTable';
+import { Categories } from './views/Categories';
+import { Products } from './views/Products';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/produtos" replace />} />
-        <Route
-          path="/produtos"
-          element={
-            <DashboardLayout>
-              <ProductsTable />
-            </DashboardLayout>
-          }
-        />
-        <Route
-          path="/categorias"
-          element={
-            <DashboardLayout>
-              <CategoriesTable />
-            </DashboardLayout>
-          }
-        />
+        <Route path="/" element={<Navigate to="/products" />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/categories" element={<Categories />} />
       </Routes>
     </BrowserRouter>
   );
