@@ -8,8 +8,8 @@ function PersonCard({ person }) {
       <div className="person-info">
         {console.log(person)}
         <img
-          style={{ width: 400 }}
-          src="https://1.bp.blogspot.com/-P5nkRmpamnM/UV2hSupl0iI/AAAAAAAAMcQ/J9jXS3tazcA/s1600/happy2.jpg"
+          style={{ width: 400, height: "100%", height: 400 }}
+          src={person.img}
           alt={person.nome}
         />
         <h2 style={{color: "#45b77d"}}>{person.nome}</h2>
