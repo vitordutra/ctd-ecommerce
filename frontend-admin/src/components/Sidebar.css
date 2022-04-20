@@ -1,0 +1,28 @@
+.sidebar {
+  background-color: #111;
+  height: 100vh;
+  padding: 16px 8px;
+}
+
+.sidebar h1 {
+  color: #fff;
+  font-weight: 400;
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+.sidebar a {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  color: #ffffff;
+}
+
+.sidebar a.active {
+  background-color: #2277da;
+}
