@@ -1,7 +1,7 @@
 package br.com.dh.ctd.ecommerce.dto;
 
-import br.com.dh.ctd.ecommerce.model.Categories;
-import br.com.dh.ctd.ecommerce.model.Products;
+import br.com.dh.ctd.ecommerce.model.Category;
+import br.com.dh.ctd.ecommerce.model.Product;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ public class ProductDto implements Serializable {
     private String description;
     private Double price;
     private String image;
+    private Boolean featured;
+    private String bannerImage;
 
     private List<CategoryDto> categories = new ArrayList<>();
 
@@ -29,7 +31,7 @@ public class ProductDto implements Serializable {
         this.image = image;
     }
 
-    public ProductDto(Products entity) {
+    public ProductDto(Product entity) {
         id = entity.getId();
         title = entity.getTitle();
         description = entity.getDescription();
@@ -38,7 +40,7 @@ public class ProductDto implements Serializable {
     }
 
     // Outro construtor que recebe o objeto e a lista de categorias
-    public ProductDto(Products entity, Set<Categories> categories) { // 0 1 2 cat
+    public ProductDto(Product entity, Set<Category> categories) { // 0 1 2 cat
         this(entity);
         categories.forEach(cat -> this.categories.add(new CategoryDto(cat)));
     }
@@ -87,4 +89,19 @@ public class ProductDto implements Serializable {
         return categories;
     }
 
+    public Boolean getFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        this.featured = featured;
+    }
+
+    public String getBannerImage() {
+        return bannerImage;
+    }
+
+    public void setBannerImage(String bannerImage) {
+        this.bannerImage = bannerImage;
+    }
 }

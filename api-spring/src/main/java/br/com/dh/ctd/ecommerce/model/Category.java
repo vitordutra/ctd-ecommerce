@@ -1,13 +1,16 @@
 package br.com.dh.ctd.ecommerce.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
 
 @Entity
-@Table
-public class Categories implements Serializable {
+@Table(name = "categories")
+public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -16,9 +19,9 @@ public class Categories implements Serializable {
     private String name;
 
     // Timestamps automáticos
-    @Column(columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
     private Instant criado;
-    @Column(columnDefinition = "TIMESTAMP")
+    @UpdateTimestamp
     private Instant atualizado;
 
     @PrePersist
@@ -31,15 +34,15 @@ public class Categories implements Serializable {
         atualizado = Instant.now();
     }
 
-    public Categories() {
+    public Category() {
     }
 
-    public Categories(Integer id, String name) {
+    public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Categories(String name) {
+    public Category(String name) {
         this.name = name;
     }
 
