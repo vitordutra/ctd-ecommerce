@@ -16,7 +16,7 @@ function PersonCard({ person }) {
         <div className="social-container">
           <Button>
             {/* ! Mudar referencia de ancora*/}
-            <a href="https://linkedin.com" target="_blank">
+            <a href={person.linkedin} target="_blank">
               <div className="person-button-control">
                 <span>Linkedin</span>
                 <span>
@@ -26,7 +26,7 @@ function PersonCard({ person }) {
             </a>
           </Button>
           <Button color="secondary">
-            <a href="https://github.com" target="_blank">
+          <a href={person.github} target="_blank">
               <div className="person-button-control">
                 <span>Github</span>
                 <span>
